@@ -1,6 +1,9 @@
 package one.digitalinnovation.gof;
 
 import one.digitalinnovation.gof.facade.Facade;
+import one.digitalinnovation.gof.factory.Notificador;
+import one.digitalinnovation.gof.factory.NotificadorFactory;
+import one.digitalinnovation.gof.factory.Pedidos;
 import one.digitalinnovation.gof.singleton.SingletonEager;
 import one.digitalinnovation.gof.singleton.SingletonLazy;
 import one.digitalinnovation.gof.singleton.SingletonLazyHolder;
@@ -15,6 +18,8 @@ public class Test {
 	public static void main(String[] args) {
 		
 		// Singleton
+		
+		System.out.println("========== Singleton ==========");
 		
 		SingletonLazy lazy = SingletonLazy.getInstancia();
 		System.out.println(lazy);
@@ -33,6 +38,8 @@ public class Test {
 		
 		// Strategy
 		
+		System.out.println("========== Strategy ==========");
+		
 		Comportamento defensivo = new ComportamentoDefensivo();
 		Comportamento normal = new ComportamentoNormal();
 		Comportamento agressivo = new ComportamentoAgressivo();
@@ -50,8 +57,24 @@ public class Test {
 		
 		// Facade
 		
+		System.out.println("========== Facade ==========");
+		
 		Facade facade = new Facade();
 		facade.migrarCliente("Venilton", "14801788");
-	}
+		
+		//Factory
+		
+		System.out.println("========== Factory ==========");
+		
+        Pedidos order = new Pedidos();
 
+        Notificador emailNotifier = NotificadorFactory.createNotifier("email");
+        Notificador smsNotifier = NotificadorFactory.createNotifier("sms");
+
+        order.addNotifier(emailNotifier);
+        order.addNotifier(smsNotifier);
+
+        order.setStatus("Processando");
+        order.setStatus("Enviado");
+	}
 }
